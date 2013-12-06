@@ -195,6 +195,18 @@ namespace algoritmia
 			return _it == _lista.begin();
 		}
 		
+		/** @brief Devuelve el material apuntado por el iterador **/
+		inline Material get() const
+		{
+			return *_it;
+		}
+		
+		/** @brief Devuelve el nombre del material apuntado por el iterador **/
+		inline string getNombre() const
+		{
+			return _it->getNombre();
+		}
+		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
 		friend istream& operator>>(istream &input, ListaMateriales &l);
 		ListaMateriales& operator=(const ListaMateriales &l);
