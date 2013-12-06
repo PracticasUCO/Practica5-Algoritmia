@@ -204,13 +204,22 @@ namespace algoritmia
 		/** @brief Devuelve el nombre del material apuntado por el iterador **/
 		inline string getNombre() const
 		{
+			assert(!this->isEnd());
 			return _it->getNombre();
 		}
 		
 		/** @brief Devuelve el volumen del material apuntado por el iterador **/
 		inline unsigned int getVolumen() const
 		{
+			assert(!this->isEnd());
 			return _it->getVolumen();
+		}
+		
+		/** @brief Devuelve el precio del material apuntado por el iterador **/
+		inline double getPrecio() const
+		{
+			assert(!this->isEnd());
+			return _it->getPrecio();
 		}
 		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
