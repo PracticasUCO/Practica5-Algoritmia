@@ -181,6 +181,13 @@ namespace algoritmia
 			}
 		}
 		
+		/** @brief Comprueba si el iterador esta al final de la lista
+		 *  @return True si ya llego al final de la lista y False en caso contrario **/
+		inline bool isEnd() const
+		{
+			return _it == _lista.end();
+		}
+		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
 		friend istream& operator>>(istream &input, ListaMateriales &l);
 		ListaMateriales& operator=(const ListaMateriales &l);
