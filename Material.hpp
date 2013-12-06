@@ -31,8 +31,7 @@ namespace algoritmia
 		string _nombre;
 		unsigned int _valorEuros;
 		unsigned int _valorCentimos;
-		unsigned int _volumenEntero;
-		unsigned int _volumenDecimal;
+		unsigned int _volumen;
 		
 	public:
 		/** @brief Constructor vacio
@@ -44,7 +43,7 @@ namespace algoritmia
 		*  @param volumen Volumen que ocupa el material
 		*  @param precio Precio del volumen
 		* **/
-		Material(const string &nombre, const double &precio, const double &volumen);
+		Material(const string &nombre, const double &precio, const unsigned int &volumen);
 		
 		/** @brief Constructor de copia de la clase Material
 		*  @param m Material a ser copiado
@@ -68,33 +67,19 @@ namespace algoritmia
 		}
 		
 		/** @brief Establece el volumen que ocupa el material
-		*  @param volumen Volumen del material
-		* **/
-		inline void setVolumen(const unsigned int &volumenEntero, const unsigned int &volumenDecimal)
-		{
-			_volumenDecimal = volumenDecimal % 1000;
-			_volumenEntero = volumenEntero + (volumenDecimal / 1000);
-		}
-		
-		/** @brief Establece el volumen que ocupa el material
 		 *  @param volumen Volumen del material
 		 * **/
-		inline void setVolumen(const double &volumen)
+		inline void setVolumen(const unsigned int &volumen)
 		{
-			unsigned int volumenEntero = static_cast<unsigned int>(volumen);
-			unsigned int volumenDecimal = static_cast<unsigned int>((volumen - volumenEntero) * 1000);
-			this->setVolumen(volumenEntero, volumenDecimal);
+			_volumen = volumen;
 		}
 		
 		/** @brief Devuelve el volumen del material
 		*  @return Volumen del material
 		* **/
-		inline double getVolumen() const
+		inline unsigned int getVolumen() const
 		{
-			double volumen;
-			
-			volumen = static_cast<double>(_volumenEntero) + (static_cast<double>(_volumenDecimal)/1000);
-			return volumen;
+			return _volumen;
 		}
 		
 		/** @brief Devuelve el precio del material, expresado como un double

@@ -14,7 +14,7 @@ namespace algoritmia
 		this->borrarMaterial();
 	}
 	
-	Material::Material(const string &nombre, const double &precio, const double &volumen)
+	Material::Material(const string &nombre, const double &precio, const unsigned int &volumen)
 	{
 		this->setNombre(nombre);
 		this->setPrecio(precio);
@@ -50,7 +50,7 @@ namespace algoritmia
 	{
 		string nombre = "Empty";
 		double precio = 0.0;
-		double volumen = 0.0;
+		unsigned int volumen = 0;
 		
 		this->setNombre(nombre);
 		this->setPrecio(precio);
@@ -61,7 +61,7 @@ namespace algoritmia
 	{
 		string nombre;
 		double precio;
-		double volumen;
+		unsigned int volumen;
 		
 		nombre = m.getNombre();
 		precio = m.getPrecio();
@@ -119,7 +119,7 @@ namespace algoritmia
 		
 		string nuevoNombre;
 		double nuevoPrecio;
-		double nuevoVolumen;
+		unsigned int nuevoVolumen;
 		
 		nuevoNombre = "SUMA DE MATERIALES";
 		nuevoPrecio = this->getPrecio() + m.getPrecio();
@@ -138,7 +138,7 @@ namespace algoritmia
 		string nombre = "RESTA DE MATERIALES";
 		
 		double precio = this->getPrecio() - m.getPrecio();
-		double volumen = this->getVolumen() - m.getVolumen();
+		unsigned int volumen = this->getVolumen() - m.getVolumen();
 		
 		resta->setNombre(nombre);
 		resta->setPrecio(precio);
@@ -151,7 +151,7 @@ namespace algoritmia
 	{
 		string nombre;
 		double precio;
-		double volumen;
+		unsigned int volumen;
 		
 		nombre = m.getNombre();
 		precio = m.getPrecio();
@@ -168,7 +168,7 @@ namespace algoritmia
 	{
 		string nombre;
 		double precio;
-		double volumen;
+		unsigned int volumen;
 		
 		cout << "Introduzca el nombre del material: ";
 		getline(input, nombre);
