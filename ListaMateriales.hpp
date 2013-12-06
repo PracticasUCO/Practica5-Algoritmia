@@ -207,6 +207,12 @@ namespace algoritmia
 			return _it->getNombre();
 		}
 		
+		/** @brief Devuelve el volumen del material apuntado por el iterador **/
+		inline unsigned int getVolumen() const
+		{
+			return _it->getVolumen();
+		}
+		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
 		friend istream& operator>>(istream &input, ListaMateriales &l);
 		ListaMateriales& operator=(const ListaMateriales &l);
