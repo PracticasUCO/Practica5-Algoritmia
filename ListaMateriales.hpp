@@ -156,6 +156,13 @@ namespace algoritmia
 			_it = _lista.begin();
 		}
 		
+		/** @brief Mueve el iterador al ultimo elemento de la lista **/
+		inline void end()
+		{
+			_it = _lista.end();
+			_it--;
+		}
+		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
 		friend istream& operator>>(istream &input, ListaMateriales &l);
 		ListaMateriales& operator=(const ListaMateriales &l);
