@@ -114,7 +114,7 @@ namespace algoritmia
 		}
 		
 		/** @brief Devuelve la suma de todos los volumenes de la lista **/
-		inline double sumarVolumenes() const
+		inline unsigned int sumarVolumenes() const
 		{
 			Material suma = this->sumar();
 			
