@@ -31,12 +31,14 @@ namespace algoritmia
 	{
 	private:
 		list<Material> _lista;
+		list<Material>::iterator _it;
 		
 	public:
 		/** @brief Constructor vacio **/
 		inline ListaMateriales()
 		{
 			//El constructor en este caso es vacio
+			this->begin();
 		}
 		
 		/** @brief Constructor de copia **/
@@ -146,6 +148,12 @@ namespace algoritmia
 		inline void clear()
 		{
 			_lista.clear();
+		}
+		
+		/** @brief Mueve el iterador al principio de la lista **/
+		inline void begin()
+		{
+			_it = _lista.begin();
 		}
 		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
