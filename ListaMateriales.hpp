@@ -179,6 +179,22 @@ namespace algoritmia
 			}
 		}
 		
+		/** @brief Mueve el iterador al elemento anterior de la lista
+		 *  @return True si ha vuelto al ultimo elemento de la lista **/
+		inline bool back()
+		{
+			if(_it != _lista.begin())
+			{
+				_it--;
+				return false;
+			}
+			else
+			{
+				this->end();
+				return true;
+			}
+		}
+		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
 		friend istream& operator>>(istream &input, ListaMateriales &l);
 		ListaMateriales& operator=(const ListaMateriales &l);
