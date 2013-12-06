@@ -163,35 +163,21 @@ namespace algoritmia
 			_it--;
 		}
 		
-		/** @brief Mueve el iterador al siguiente elemento de la lista
-		 *  @return True si ha dado la vuelta a la lista, false en caso contrario **/
-		inline bool next()
+		/** @brief Mueve el iterador al siguiente elemento de la lista **/
+		inline void next()
 		{
-			_it++;
-			
-			if(_it == _lista.end())
+			if(_it != _lista.end())
 			{
-				return true;
-			}
-			else
-			{
-				return false;
+				_it++;
 			}
 		}
 		
-		/** @brief Mueve el iterador al elemento anterior de la lista
-		 *  @return True si ha vuelto al ultimo elemento de la lista **/
-		inline bool back()
+		/** @brief Mueve el iterador al elemento anterior de la lista **/
+		inline void back()
 		{
 			if(_it != _lista.begin())
 			{
 				_it--;
-				return false;
-			}
-			else
-			{
-				this->end();
-				return true;
 			}
 		}
 		
