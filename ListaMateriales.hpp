@@ -188,6 +188,13 @@ namespace algoritmia
 			return _it == _lista.end();
 		}
 		
+		/** @brief Comprueba si el iterador esta al principio de la lista
+		 *  @return True si el iterador esta justo en el primer elemento de la lista y False en caso contrario **/
+		inline bool isBegin() const
+		{
+			return _it == _lista.begin();
+		}
+		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
 		friend istream& operator>>(istream &input, ListaMateriales &l);
 		ListaMateriales& operator=(const ListaMateriales &l);
