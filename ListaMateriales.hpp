@@ -163,6 +163,22 @@ namespace algoritmia
 			_it--;
 		}
 		
+		/** @brief Mueve el iterador al siguiente elemento de la lista
+		 *  @return True si ha dado la vuelta a la lista, false en caso contrario **/
+		inline bool next()
+		{
+			_it++;
+			
+			if(_it == _lista.end())
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
 		friend ostream& operator<<(ostream &output, const ListaMateriales &l);
 		friend istream& operator>>(istream &input, ListaMateriales &l);
 		ListaMateriales& operator=(const ListaMateriales &l);
