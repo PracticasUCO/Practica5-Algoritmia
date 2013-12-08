@@ -151,6 +151,13 @@ namespace algoritmia
 			}
 		}
 		
+		/** @brief Realiza una ordenación segun el criterio que establezca el usuario
+		 *  @param ordFunc una funcion de tipo booleano que establece la forma de ordenación del usuario **/
+		inline void sort(bool (*ordFunc)(const Material &A, const Material &B))
+		{
+			_lista.sort(ordFunc);
+		}
+		
 		/** @brief Revierte el orden de los elementos
 		 * **/
 		inline void reverse()
