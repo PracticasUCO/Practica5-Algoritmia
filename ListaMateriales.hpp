@@ -21,6 +21,7 @@
 
 #include <list>
 #include <string>
+#include <cassert>
 #include "Material.hpp"
 
 using namespace std;
@@ -233,6 +234,9 @@ namespace algoritmia
 		ListaMateriales& operator+(const ListaMateriales &l) const;
 		ListaMateriales& operator-(const ListaMateriales &l) const;
 	};
+	
+	/** Devuelve true si el material X tiene menor volumen que el material Y **/
+	bool menorVolumen(const Material &X, const Material &Y);
 }
 
 #endif
