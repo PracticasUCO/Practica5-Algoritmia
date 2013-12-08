@@ -338,4 +338,9 @@ namespace algoritmia
 		
 		return *n;
 	}
+	
+	bool menorVolumen(const Material &X, const Material &Y)
+	{
+		return X.getVolumen() < Y.getVolumen();
+	}
 };

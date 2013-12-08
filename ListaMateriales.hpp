@@ -28,6 +28,9 @@ using namespace std;
 
 namespace algoritmia
 {
+	/** Devuelve true si el material X tiene menor volumen que el material Y **/
+	bool menorVolumen(const Material &X, const Material &Y);
+	
 	class ListaMateriales
 	{
 	private:
@@ -138,6 +141,12 @@ namespace algoritmia
 			_lista.sort();
 		}
 		
+		/** @brief Ordena la lista de materiales por volumen, no por precios **/
+		inline void sortByVolumen()
+		{
+			_lista.sort(menorVolumen);
+		}
+		
 		/** @brief Revierte el orden de los elementos
 		 * **/
 		inline void reverse()
@@ -234,9 +243,6 @@ namespace algoritmia
 		ListaMateriales& operator+(const ListaMateriales &l) const;
 		ListaMateriales& operator-(const ListaMateriales &l) const;
 	};
-	
-	/** Devuelve true si el material X tiene menor volumen que el material Y **/
-	bool menorVolumen(const Material &X, const Material &Y);
 }
 
 #endif
