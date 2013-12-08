@@ -31,6 +31,8 @@ namespace algoritmia
 	/** Devuelve true si el material X tiene menor volumen que el material Y **/
 	bool menorVolumen(const Material &X, const Material &Y);
 	
+	enum ORDENACION_MATERIALES { ORDER_BY_PRICE, ORDER_BY_VOLUMEN };
+	
 	class ListaMateriales
 	{
 	private:
@@ -135,16 +137,18 @@ namespace algoritmia
 		}
 		
 		/** @brief Ordena la lista de materiales
+		 *  @param order Especifica si se deben ordenar por materiales o por precios
 		 * **/
-		inline void sort()
+		inline void sort(const enum ORDENACION_MATERIALES &order = ORDER_BY_PRICE)
 		{
-			_lista.sort();
-		}
-		
-		/** @brief Ordena la lista de materiales por volumen, no por precios **/
-		inline void sortByVolumen()
-		{
-			_lista.sort(menorVolumen);
+			if(order == ORDER_BY_PRICE)
+			{
+				_lista.sort();
+			}
+			else
+			{
+				_lista.sort(menorVolumen);
+			}
 		}
 		
 		/** @brief Revierte el orden de los elementos
