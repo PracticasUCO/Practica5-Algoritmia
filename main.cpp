@@ -30,7 +30,7 @@ int main()
 {
 	Mochila mochila;
 	unsigned int opcion;
-	double volumenInicial;
+	unsigned int volumenInicial;
 	
 	cout << "Introduzca el volumen inicial de la mochila: ";
 	cin >> volumenInicial;
@@ -105,7 +105,7 @@ int main()
 				
 			case 6:
 				{
-					double nuevoVolumen;
+					unsigned int nuevoVolumen;
 					cout << "Introduzca el nuevo volumen: ";
 					cin >> nuevoVolumen;
 					cout << endl;
