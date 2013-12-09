@@ -14,6 +14,9 @@ Material.o: Material.hpp Material.cpp
 ListaMateriales.o: ListaMateriales.hpp ListaMateriales.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ ListaMateriales.cpp
 	
+Mochila.o: Mochila.cpp Mochila.hpp
+	$(CXX) $(CXXFLAGS) -c -o $@ Mochila.cpp
+	
 test: test.cpp Material.o ListaMateriales.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
