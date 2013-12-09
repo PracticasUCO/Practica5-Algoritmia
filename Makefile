@@ -1,7 +1,7 @@
 .PHONY: clean-all clean-objects clean-test
 
 CXX =  g++
-CXXFLAGS = $(LIBRARY) $(HEADER) $(STD) -ggdb3
+CXXFLAGS = $(LIBRARY) $(HEADER) $(STD) -O3 $(OPTIMIZATION)
 LIBRARY = -L.
 HEADER = -I.
 STD = -std=c++11
