@@ -22,6 +22,7 @@
 #include <list>
 #include <string>
 #include <limits>
+#include <valarray>
 #include "Mochila.hpp"
 #include "ListaMateriales.hpp"
 
@@ -62,37 +63,87 @@ namespace algoritmia
 	{
 		ListaMateriales disponibles = this->getDisponibles();
 		unsigned int nDisponibles = disponibles.size();
-		double volumen = 0;
-		double volumenMaximo = this->getVolumenMaximo();
+		unsigned int volumenMaximo = this->getVolumenMaximo();
+		valarray<valarray<double> > elementos;
+		
 		this->vaciar();
 		
-		disponibles.sort();
-		disponibles.reverse();
+		elementos.resize(nDisponibles);
 		
-		for(unsigned int i = 0; i < nDisponibles; i++)
+		for(unsigned int i = 0; i < elementos.size(); i++)
 		{
-			Material mat = disponibles.get(i);
-			
-			if((mat.getVolumen() + volumen) <= volumenMaximo)
+			elementos[i].resize(volumenMaximo + 1, 0);
+		}
+		
+		disponibles.sort(ORDER_BY_VOLUMEN);
+		
+		elementos[0] = disponibles.get(0).getPrecio() * disponibles.get(0).getVolumen();
+		elementos[0][0] = 0;
+		
+		for(unsigned int i = 0; i < elementos[0].size(); i++)
+		{
+			Material m = disponibles.get(0);
+			if(m.getVolumen() < i)
 			{
-				_materialesSeleccionados.add(mat);
-				volumen += mat.getVolumen();
-			}
-			else if(volumen != volumenMaximo)
-			{
-				double vol = volumenMaximo - volumen;
-				double pre = mat.getPrecio();
-
-				mat.setVolumen(vol);
-				mat.setPrecio(pre);
-				_materialesSeleccionados.add(mat);
-				break;
+				elementos[0][i] = 0;
 			}
 			else
 			{
 				break;
 			}
 		}
+		
+		unsigned int volumen = disponibles.get(0).getVolumen();
+		
+		for(unsigned int i = 1; i < disponibles.size(); i++)
+		{
+			Material mat = disponibles.get(i);
+			unsigned int k;
+			volumen += mat.getVolumen();
+			bool relleno = false;
+			
+			for(unsigned int j = 1; j < elementos[i].size(); j++)
+			{
+				if(mat.getVolumen() > j)
+				{
+					elementos[i][j] = elementos[i-1][j];
+				}
+				else if(elementos[i-1][j] > (elementos[i][j-mat.getVolumen()] + (mat.getPrecio() * mat.getVolumen())))
+				{
+					elementos[i][j] = elementos[i-1][j];
+				}
+				else
+				{
+					elementos[i][j] = elementos[i][j-mat.getVolumen()] + (mat.getPrecio() * mat.getVolumen());
+					//elementos[i][j+1] = elementos[i][j - mat.getVolumen() + 1] + (mat.getPrecio() * mat.getVolumen());
+					
+					if(volumen <= j)
+					{
+						k = j;
+						relleno = true;
+						break;
+					}
+				}
+			}
+			
+			if(relleno)
+			{
+				for(unsigned int j = k + 1; j < elementos[i].size(); j++)
+				{
+					elementos[i][j] = elementos[i][j - 1];
+				}
+			}
+		}
+		
+		for(unsigned int i = 0; i < elementos.size(); i++)
+		{
+			for(unsigned int j = 0; j < elementos[i].size(); j++)
+			{
+				cout << elementos[i][j] << " - ";
+			}
+			cout << endl;
+		}
+		
 	}
 	
 	ostream& operator<<(ostream &output, const Mochila &m)
