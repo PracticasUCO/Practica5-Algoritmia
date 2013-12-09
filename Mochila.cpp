@@ -195,10 +195,12 @@ namespace algoritmia
 		for(unsigned int i = 0; i < nElementos; i++)
 		{
 			Material mat;
-			cout << "INTRODUCCIENDO EL MATERIAL " << i + 1 << endl;
-			cin >> mat;
-			cout << endl;
-			lista.add(mat);
+			do
+			{
+				cout << "INTRODUCCIENDO EL MATERIAL " << i + 1 << endl;
+				cin >> mat;
+				cout << endl;
+			} while(!lista.add(mat));
 		}
 		
 		m.setVolumen(volumenMaximo);
