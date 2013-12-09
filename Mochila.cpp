@@ -23,7 +23,6 @@
 #include <string>
 #include <limits>
 #include <valarray>
-#include <iomanip>
 #include "Mochila.hpp"
 #include "ListaMateriales.hpp"
 
@@ -62,13 +61,16 @@ namespace algoritmia
 	
 	void Mochila::llenar()
 	{
-		ListaMateriales disponibles = this->getDisponibles();
-		unsigned int nDisponibles = disponibles.size();
-		unsigned int volumenMaximo = this->getVolumenMaximo();
-		valarray<valarray<double> > elementos;
+		//Inicialización de las variables que nos seran utiles durante el proceso de llenado
+		ListaMateriales disponibles = this->getDisponibles(); //Almacena una lista de materiales de los que disponemos
+		unsigned int nDisponibles = disponibles.size(); //Mantiene cuantos elementos disponemos
+		unsigned int volumenMaximo = this->getVolumenMaximo();  //Dice cual es el volumen maximo de la mochila, el cual no se debe sobrepasar
+		valarray<valarray<double> > elementos; //Matriz de elementos, en los cuales se ira buscando la solución optima en cada paso
 		
+		//Vaciamos la lista de materiales seleccionados
 		this->vaciar();
 		
+		//Redimensionamos la matriz de precios, a una dimension de nDisponibles x volumenMaximo (filas x columnas)
 		elementos.resize(nDisponibles);
 		
 		for(unsigned int i = 0; i < elementos.size(); i++)
@@ -76,11 +78,16 @@ namespace algoritmia
 			elementos[i].resize(volumenMaximo + 1, 0);
 		}
 		
+		//Ordenamos lso materiales que se encuentran disponibles en orden creciente de volumen
 		disponibles.sort(ORDER_BY_VOLUMEN);
 		
+		// La primera fila de la matriz es igual a una serie de elementos que valdran cero y el resto de
+		// ellos valdran el volumen del material más pequeño * su precio
+		// con esto ponemos toda la fila a un valor distinto de cero
 		elementos[0] = disponibles.get(0).getPrecio() * disponibles.get(0).getVolumen();
 		//elementos[0][0] = 0;
 		
+		// Con este bucle colocamos aquellos pocos elementos de la fila que deberian de estar a cero.
 		for(unsigned int i = 0; i < elementos[0].size(); i++)
 		{
 			Material m = disponibles.get(0);
@@ -96,6 +103,7 @@ namespace algoritmia
 		
 		unsigned int volumen = disponibles.get(0).getVolumen();
 		
+		//Rellenamos la matriz de doubles
 		for(unsigned int i = 1; i < disponibles.size(); i++)
 		{
 			Material mat = disponibles.get(i);
@@ -136,6 +144,7 @@ namespace algoritmia
 			}
 		}
 		
+		// Leemos la matriz y guardamos el resultado
 		for(unsigned int i = disponibles.size() - 1, columnaBusqueda = this->getVolumenMaximo(); ((i >= 0) && (columnaBusqueda != 0)); i--)
 		{
 			if(i == 0)
