@@ -23,6 +23,7 @@
 #include <string>
 #include <limits>
 #include <valarray>
+#include <iomanip>
 #include "Mochila.hpp"
 #include "ListaMateriales.hpp"
 
@@ -78,7 +79,7 @@ namespace algoritmia
 		disponibles.sort(ORDER_BY_VOLUMEN);
 		
 		elementos[0] = disponibles.get(0).getPrecio() * disponibles.get(0).getVolumen();
-		elementos[0][0] = 0;
+		//elementos[0][0] = 0;
 		
 		for(unsigned int i = 0; i < elementos[0].size(); i++)
 		{
@@ -135,13 +136,20 @@ namespace algoritmia
 			}
 		}
 		
-		for(unsigned int i = 0; i < elementos.size(); i++)
+		for(unsigned int i = disponibles.size() - 1, columnaBusqueda = this->getVolumenMaximo(); ((i >= 0) && (columnaBusqueda != 0)); i--)
 		{
-			for(unsigned int j = 0; j < elementos[i].size(); j++)
+			if(i == 0)
 			{
-				cout << elementos[i][j] << " - ";
+				Material mat = disponibles.get(i);
+				_materialesSeleccionados.add(mat);
+				break;
 			}
-			cout << endl;
+			else if(elementos[i][columnaBusqueda] != elementos[i - 1][columnaBusqueda])
+			{
+				Material mat = disponibles.get(i);
+				_materialesSeleccionados.add(mat);
+				columnaBusqueda -= mat.getVolumen();
+			}
 		}
 		
 	}
