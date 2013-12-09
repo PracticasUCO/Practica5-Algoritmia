@@ -14,7 +14,7 @@ Material.o: Material.hpp Material.cpp
 ListaMateriales.o: ListaMateriales.hpp ListaMateriales.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ ListaMateriales.cpp
 	
-test: test.cpp Material.o
+test: test.cpp Material.o ListaMateriales.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean-objects:
