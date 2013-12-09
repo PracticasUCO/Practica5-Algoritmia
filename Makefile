@@ -8,6 +8,9 @@ STD = -std=c++11
 OPTIMIZATION = -fbounds-check -fdefault-inline -ffast-math -ffloat-store -fforce-addr -ffunction-cse -finline -finline-functions\
 -fmerge-all-constants
 
+practica5: Material.o ListaMateriales.o Mochila.o main.o funcionesAltoNivel.o
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
 Material.o: Material.hpp Material.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ Material.cpp
 
@@ -16,6 +19,12 @@ ListaMateriales.o: ListaMateriales.hpp ListaMateriales.cpp
 	
 Mochila.o: Mochila.cpp Mochila.hpp
 	$(CXX) $(CXXFLAGS) -c -o $@ Mochila.cpp
+	
+funcionesAltoNivel.o: funcionesAltoNivel.hpp funcionesAltoNivel.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ funcionesAltoNivel.cpp
+	
+main.o: main.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ main.cpp
 	
 test: test.cpp Material.o ListaMateriales.o Mochila.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
