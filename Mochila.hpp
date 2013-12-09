@@ -128,7 +128,7 @@ namespace algoritmia
 		* **/
 		inline unsigned int getVolumenMaximo() const
 		{
-			return _volumen;
+			return _volumenMaximo;
 		}
 		
 		/** @brief Muestra toda la información de los materiales guardados en la mochila **/
