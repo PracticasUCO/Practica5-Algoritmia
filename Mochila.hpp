@@ -29,8 +29,7 @@ namespace algoritmia
 		ListaMateriales _materialesDisponibles;
 		ListaMateriales _materialesSeleccionados;
 		
-		unsigned int _volumenMaximoEntero;
-		unsigned int _volumenMaximoDecimal;
+		unsigned int _volumenMaximo;
 		
 	public:
 		/** @brief Constructor vacio de clase **/
@@ -43,7 +42,7 @@ namespace algoritmia
 		/** @brief Constructor por defecto de la Mochila.
 		*   @param lista Lista de materiales disponibles
 		*   @param volumen Volumen maximo que tendra la mochila **/
-		inline Mochila(const ListaMateriales &lista, const double &volumen = 0)
+		inline Mochila(const ListaMateriales &lista, const unsigned int &volumen = 0)
 		{
 			this->setDisponibles(lista);
 			this->setVolumen(volumen);
@@ -60,13 +59,10 @@ namespace algoritmia
 		/** @brief Cambia el volumen de la mochila
 		 *  @param volumen Nuevo volumen de la mochila
 		 *  @warning El cambiar el volumen hara que se vacie la mochila **/
-		inline void setVolumen(const double &volumen)
+		inline void setVolumen(const unsigned int &volumen)
 		{
 			_materialesSeleccionados.clear();
-			_volumenMaximoEntero = static_cast<unsigned int>(volumen);
-			_volumenMaximoDecimal = static_cast<unsigned int>((volumen - _volumenMaximoEntero) * 1000);
-			_volumenMaximoEntero += _volumenMaximoDecimal / 1000;
-			_volumenMaximoDecimal = _volumenMaximoDecimal % 1000;
+			_volumenMaximo = volumen;
 		}
 		
 		/** @brief Muestra los materiales disponibles **/
@@ -104,7 +100,7 @@ namespace algoritmia
 		}
 		
 		/** @brief Devuelve el volumen relleno de la mochila **/
-		inline double getVolumen() const
+		inline unsigned int getVolumen() const
 		{
 			ListaMateriales lista = this->getMaterialesMochila();
 			return lista.sumarVolumenes();
@@ -130,9 +126,9 @@ namespace algoritmia
 		/** @brief Devuelve el volumen llenado de la mochila
 		*  @return Volumen lleno de la mochila
 		* **/
-		inline double getVolumenMaximo() const
+		inline unsigned int getVolumenMaximo() const
 		{
-			return static_cast<double>(_volumenMaximoEntero) + (static_cast<double>(_volumenMaximoDecimal) / 1000);
+			return _volumen;
 		}
 		
 		/** @brief Muestra toda la información de los materiales guardados en la mochila **/
