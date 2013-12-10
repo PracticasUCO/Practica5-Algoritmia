@@ -84,7 +84,7 @@ namespace algoritmia
 		// La primera fila de la matriz es igual a una serie de elementos que valdran cero y el resto de
 		// ellos valdran el volumen del material más pequeño * su precio
 		// con esto ponemos toda la fila a un valor distinto de cero
-		elementos[0] = disponibles.get(0).getPrecio() * disponibles.get(0).getVolumen();
+		elementos[0] = disponibles.get(0).getPrecio();
 		//elementos[0][0] = 0;
 		
 		// Con este bucle colocamos aquellos pocos elementos de la fila que deberian de estar a cero.
@@ -117,14 +117,13 @@ namespace algoritmia
 				{
 					elementos[i][j] = elementos[i-1][j];
 				}
-				else if(elementos[i-1][j] > (elementos[i][j-mat.getVolumen()] + (mat.getPrecio() * mat.getVolumen())))
+				else if(elementos[i-1][j] > ( elementos[i][j-mat.getVolumen()] + mat.getPrecio() ))
 				{
 					elementos[i][j] = elementos[i-1][j];
 				}
 				else
 				{
-					elementos[i][j] = elementos[i][j-mat.getVolumen()] + (mat.getPrecio() * mat.getVolumen());
-					//elementos[i][j+1] = elementos[i][j - mat.getVolumen() + 1] + (mat.getPrecio() * mat.getVolumen());
+					elementos[i][j] = elementos[i][j-mat.getVolumen()] + mat.getPrecio();
 					
 					if(volumen <= j)
 					{
