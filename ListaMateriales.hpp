@@ -115,7 +115,7 @@ namespace algoritmia
 			
 			for(it = _lista.begin(); it != _lista.end(); it++)
 			{
-				precio += (it->getVolumen() * it->getPrecio());
+				precio += it->getPrecio();
 			}
 			
 			return precio;
