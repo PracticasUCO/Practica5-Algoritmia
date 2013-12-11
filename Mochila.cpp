@@ -22,7 +22,7 @@
 #include <list>
 #include <string>
 #include <limits>
-#include <valarray>
+#include <vector>
 #include "Mochila.hpp"
 #include "ListaMateriales.hpp"
 
@@ -65,7 +65,7 @@ namespace algoritmia
 		ListaMateriales disponibles = this->getDisponibles(); //Almacena una lista de materiales de los que disponemos
 		unsigned int nDisponibles = disponibles.size(); //Mantiene cuantos elementos disponemos
 		unsigned int volumenMaximo = this->getVolumenMaximo();  //Dice cual es el volumen maximo de la mochila, el cual no se debe sobrepasar
-		valarray<valarray<double> > elementos; //Matriz de elementos, en los cuales se ira buscando la solución optima en cada paso
+		vector<vector<double> > elementos; //Matriz de elementos, en los cuales se ira buscando la solución optima en cada paso
 		
 		//Vaciamos la lista de materiales seleccionados
 		this->vaciar();
@@ -79,16 +79,21 @@ namespace algoritmia
 		}
 		
 		//Ordenamos lso materiales que se encuentran disponibles en orden creciente de volumen
-		disponibles.sort(ORDER_BY_VOLUMEN);
+		//disponibles.sort(ORDER_BY_VOLUMEN);
 		
 		// La primera fila de la matriz es igual a una serie de elementos que valdran cero y el resto de
 		// ellos valdran el volumen del material más pequeño * su precio
 		// con esto ponemos toda la fila a un valor distinto de cero
-		elementos[0] = disponibles.get(0).getPrecio() * disponibles.get(0).getVolumen();
+		//elementos[0] = disponibles.get(0).getPrecio() * disponibles.get(0).getVolumen();
 		//elementos[0][0] = 0;
 		
+		for(unsigned int i = disponibles.get(0).getVolumen(); i < elementos[0].size(); i++)
+		{
+			elementos[0][i] = disponibles.get(0).getPrecio() * disponibles.get(0).getVolumen();
+		}
+		
 		// Con este bucle colocamos aquellos pocos elementos de la fila que deberian de estar a cero.
-		for(unsigned int i = 0; i < elementos[0].size(); i++)
+		/*for(unsigned int i = 0; i < elementos[0].size(); i++)
 		{
 			Material m = disponibles.get(0);
 			if(m.getVolumen() < i)
@@ -99,7 +104,7 @@ namespace algoritmia
 			{
 				break;
 			}
-		}
+		}*/
 		
 		unsigned int volumen = disponibles.get(0).getVolumen();
 		
@@ -117,13 +122,13 @@ namespace algoritmia
 				{
 					elementos[i][j] = elementos[i-1][j];
 				}
-				else if(elementos[i-1][j] > (elementos[i][j-mat.getVolumen()] + (mat.getPrecio() * mat.getVolumen())))
+				else if(elementos[i-1][j] > (elementos[i-1][j-mat.getVolumen()] + (mat.getPrecio() * mat.getVolumen())))
 				{
 					elementos[i][j] = elementos[i-1][j];
 				}
 				else
 				{
-					elementos[i][j] = elementos[i][j-mat.getVolumen()] + (mat.getPrecio() * mat.getVolumen());
+					elementos[i][j] = elementos[i-1][j-mat.getVolumen()] + (mat.getPrecio() * mat.getVolumen());
 					//elementos[i][j+1] = elementos[i][j - mat.getVolumen() + 1] + (mat.getPrecio() * mat.getVolumen());
 					
 					if(volumen <= j)
@@ -144,19 +149,24 @@ namespace algoritmia
 			}
 		}
 		
+		unsigned int volumenRelleno = 0;
 		// Leemos la matriz y guardamos el resultado
 		for(unsigned int i = disponibles.size() - 1, columnaBusqueda = this->getVolumenMaximo(); ((i >= 0) && (columnaBusqueda != 0)); i--)
 		{
 			if(i == 0)
 			{
-				Material mat = disponibles.get(i);
-				_materialesSeleccionados.add(mat);
+				if (volumenRelleno + disponibles.get(i).getVolumen() < this->getVolumenMaximo())
+				{
+					Material mat = disponibles.get(i);
+					_materialesSeleccionados.add(mat);
+				}
 				break;
 			}
 			else if(elementos[i][columnaBusqueda] != elementos[i - 1][columnaBusqueda])
 			{
 				Material mat = disponibles.get(i);
 				_materialesSeleccionados.add(mat);
+				volumenRelleno += mat.getVolumen();
 				columnaBusqueda -= mat.getVolumen();
 			}
 		}
